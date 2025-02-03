@@ -1,0 +1,17 @@
+when:
+  instance: ci.kokuwa.io
+  repo: woodpecker/hadolint
+  event: [manual, push]
+  branch: main
+  path: [.woodpecker/dockerhub.yaml, README.md]
+
+steps:
+
+  metadata:
+    image: kokuwaio/dockerhub-metadata
+    settings:
+      repository: kokuwaio/hadolint
+      description-short: A WoodpeckerCI plugin for hadolint to lint Dockerfiles.
+      categories: [developer-tools, integration-and-delivery]
+      username: {from_secret: dockerhub_username}
+      password: {from_secret: dockerhub_password}
