@@ -1,0 +1,38 @@
+when:
+  event: [manual, push, pull_request]
+  branch: main
+  path: [.woodpecker/build.yaml, .woodpecker/push.yaml, Dockerfile, Dockerfile.dockerignore, entrypoint.sh]
+
+matrix:
+  PLATFORM: [amd64, arm64]
+labels:
+  platform: linux/${PLATFORM}
+
+steps:
+
+  build:
+    image: gcr.io/kaniko-project/executor:v1.23.2-debug
+    commands: /kaniko/executor
+        --context=$CI_WORKSPACE
+        --destination=ci-registry.schnabel.org/kokuwaio/hadolint:$CI_PIPELINE_NUMBER-$PLATFORM
+        --reproducible
+        --cache
+        --cache-copy-layers
+        --cache-run-layers
+        --cache-repo=$DOCKER_CACHE/cache/kokuwaio/hadolint
+        --insecure-registry=$DOCKER_CACHE
+        --insecure-registry=$DOCKER_MIRROR
+        --registry-mirror=$DOCKER_MIRROR
+        --skip-default-registry-fallback
+        --label=org.opencontainers.image.title="Hadolint Plugin"
+        --label=org.opencontainers.image.description="A Woodpecker CI plugin for hadolint to lint Dockerfiles."
+        --label=org.opencontainers.image.url=$CI_REPO_URL
+        --label=org.opencontainers.image.documentation=$CI_REPO_URL
+        --label=org.opencontainers.image.source=$CI_REPO_CLONE_URL
+        --label=org.opencontainers.image.vendor=kokuwa.io
+        --label=org.opencontainers.image.licenses=GPL-3.0-or-later
+        --label=org.opencontainers.image.version=v2.12.0
+
+  test:
+    image: ci-registry.schnabel.org/kokuwaio/hadolint:${CI_PIPELINE_NUMBER}-${PLATFORM}
+    pull: true

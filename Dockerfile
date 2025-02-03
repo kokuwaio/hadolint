@@ -1,0 +1,35 @@
+##
+## Download hadolint
+##
+
+FROM docker.io/library/debian:12.9-slim@sha256:40b107342c492725bc7aacbe93a49945445191ae364184a6d24fedb28172f6f7 AS build
+SHELL ["/bin/bash", "-u", "-e", "-o", "pipefail", "-c"]
+RUN --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+	apt-get -qq update && \
+	apt-get -qq install --yes --no-install-recommends ca-certificates wget && \
+	rm -rf /etc/*- /var/lib/dpkg/*-old /var/lib/dpkg/status /var/cache/* /var/log/*
+
+# https://github.com/hadolint/hadolint/tags
+# https://github.com/hadolint/hadolint/issues/245 - Request Signed releases
+
+ARG HADOLINT_VERSION=v2.12.0
+RUN ARCH=$(dpkg --print-architecture) && \
+	[[ $ARCH == amd64 ]] && export SUFFIX=x86_64; \
+	[[ $ARCH == arm64 ]] && export SUFFIX=arm64; \
+	[[ -z ${SUFFIX:-} ]] && echo "Unknown arch: $ARCH" && exit 1; \
+	wget --no-hsts --quiet \
+		"https://github.com/hadolint/hadolint/releases/download/$HADOLINT_VERSION/hadolint-Linux-${SUFFIX}" \
+		"https://github.com/hadolint/hadolint/releases/download/$HADOLINT_VERSION/hadolint-Linux-${SUFFIX}.sha256" && \
+	sha256sum  --check --strict "hadolint-Linux-$SUFFIX.sha256" && \
+	mv "hadolint-Linux-$SUFFIX" /usr/local/bin/hadolint && \
+	rm -rf "hadolint-Linux-$SUFFIX.sha256"
+
+##
+## Final stage
+##
+
+FROM docker.io/library/bash:5.2.37@sha256:6b7a52601cb4a02a370b394858eb609e701bf221920a259ecb5a933c6d5b3d2e
+COPY --link --chown=0:0 --chmod=555 --from=build /usr/local/bin/hadolint /usr/local/bin/hadolint
+COPY --link --chown=0:0 --chmod=555 entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/bash", "/usr/local/bin/entrypoint.sh"]
+USER 1000:1000
