@@ -10,7 +10,7 @@ RUN ARCH=$(uname -m) && \
 	[[ $ARCH == x86_64 ]] && export SUFFIX=x86_64; \
 	[[ $ARCH == aarch64 ]] && export SUFFIX=arm64; \
 	[[ -z ${SUFFIX:-} ]] && echo "Unknown arch: $ARCH" && exit 1; \
-	wget -q "https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-$SUFFIX" --output-document=/usr/local/bin/hadolint && \
+	wget -q "https://github.com/hadolint/hadolint/releases/download/v2.13.1/hadolint-Linux-$SUFFIX" --output-document=/usr/local/bin/hadolint && \
 	chmod 555 /usr/local/bin/hadolint
 
 COPY --chmod=555 entrypoint.sh /usr/local/bin/entrypoint.sh
