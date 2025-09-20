@@ -23,7 +23,7 @@ Woodpecker:
 ```yaml
 steps:
   hadolint:
-    image: kokuwaio/hadolint
+    image: kokuwaio/hadolint:v2.13.1
     settings:
       strict-labels: true
       format: json
@@ -36,8 +36,12 @@ Gitlab:
 
 ```yaml
 hadolint:
+  needs: []
   stage: lint
-  image: kokuwaio/hadolint
+  image:
+    name: kokuwaio/hadolint:v2.13.1
+    entrypoint: [""]
+  script: [/usr/local/bin/entrypoint.sh]
   variables:
     PLUGIN_STRICT_LABELS: true
     PLUGIN_FORMAT: json
