@@ -23,6 +23,7 @@ Woodpecker:
 ```yaml
 steps:
   hadolint:
+    depends_on: []
     image: kokuwaio/hadolint:v2.14.0
     settings:
       strict-labels: true
@@ -32,7 +33,7 @@ steps:
       path: [.hadolint.yaml, "**/Dockerfile"]
 ```
 
-Gitlab:
+Gitlab: (using script is needed because of <https://gitlab.com/gitlab-org/gitlab/-/issues/19717>)
 
 ```yaml
 hadolint:
