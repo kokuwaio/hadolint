@@ -59,20 +59,20 @@ docker run --rm --volume=$(pwd):$(pwd):ro --workdir=$(pwd) kokuwaio/hadolint --s
 
 ## Settings
 
-| Settings Name           | Environment                  | Default | Description                                                     |
-| ----------------------- | ---------------------------- | ------- | --------------------------------------------------------------- |
-| `no-fail`               | PLUGIN_NO_FAIL               | `none`  | Don't exit with a failure status code when any rule is violated |
-| `no-color`              | PLUGIN_NO_COLOR              | `none`  | Don't colorize output                                           |
-| `strict-labels`         | PLUGIN_STRICT_LABELS         | `none`  | Do not permit labels other than specified in `label-schema`     |
-| `disable-ignore-pragma` | PLUGIN_DISABLE_IGNORE_PRAGMA | `none`  | Disable inline ignore pragmas `# hadolint ignore=DLxxxx`        |
+| Settings Name           | Environment                  | Default | Description                                                                                                                                                 |
+| ----------------------- | ---------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `no-fail`               | PLUGIN_NO_FAIL               | `none`  | Don't exit with a failure status code when any rule is violated                                                                                             |
+| `no-color`              | PLUGIN_NO_COLOR              | `none`  | Don't colorize output                                                                                                                                       |
+| `strict-labels`         | PLUGIN_STRICT_LABELS         | `none`  | Do not permit labels other than specified in `label-schema`                                                                                                 |
+| `disable-ignore-pragma` | PLUGIN_DISABLE_IGNORE_PRAGMA | `none`  | Disable inline ignore pragmas `# hadolint ignore=DLxxxx`                                                                                                    |
 | `failure-threshold`     | PLUGIN_FAILURE_THRESHOLD     | `style` | Exit with failure code only when rules with a severity equal to or above THRESHOLD are violated. Accepted values: error, warning, info, style, ignore, none |
-| `format`                | PLUGIN_FORMAT                | `tty`   | The output format for the results: tty, json, checkstyle, codeclimate, gitlab_codeclimate, gnu, codacy, sonarqube, sarif |
-| `verbose`               | PLUGIN_VERBOSE               | `false` | Enables verbose logging of hadolint's output to stderr          |
+| `format`                | PLUGIN_FORMAT                | `tty`   | The output format for the results: tty, json, checkstyle, codeclimate, gitlab_codeclimate, gnu, codacy, sonarqube, sarif                                    |
+| `verbose`               | PLUGIN_VERBOSE               | `false` | Enables verbose logging of hadolint's output to stderr                                                                                                      |
 
 ## Alternatives
 
-| Image                                                                               | Comment                           | amd64 | arm64 |
-| ----------------------------------------------------------------------------------- | --------------------------------- |:-----:|:-----:|
-| [kokuwaio/hadolint](https://hub.docker.com/r/kokuwaio/hadolint)                     | Woodpecker plugin                 | [![size](https://img.shields.io/docker/image-size/kokuwaio/hadolint?arch=amd64&label=)](https://hub.docker.com/r/kokuwaio/hadolint) | [![size](https://img.shields.io/docker/image-size/kokuwaio/hadolint?arch=arm64&label=)](https://hub.docker.com/r/kokuwaio/hadolint) |
-| [hadolint/hadolint](https://hub.docker.com/r/hadolint/hadolint)                     | not a Woodpecker plugin, official | [![size](https://img.shields.io/docker/image-size/hadolint/hadolint?arch=amd64&label=)](https://hub.docker.com/r/hadolint/hadolint) | [![size](https://img.shields.io/docker/image-size/hadolint/hadolint?arch=arm64&label=)](https://hub.docker.com/r/hadolint/hadolint) |
+| Image                                                                               | Comment                           |                                                                          amd64                                                                          |                                                                          arm64                                                                          |
+| ----------------------------------------------------------------------------------- | --------------------------------- | :-----------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [kokuwaio/hadolint](https://hub.docker.com/r/kokuwaio/hadolint)                     | Woodpecker plugin                 | [![size](https://img.shields.io/docker/image-size/kokuwaio/hadolint?arch=amd64&label=)](https://hub.docker.com/r/kokuwaio/hadolint)                     | [![size](https://img.shields.io/docker/image-size/kokuwaio/hadolint?arch=arm64&label=)](https://hub.docker.com/r/kokuwaio/hadolint)                     |
+| [hadolint/hadolint](https://hub.docker.com/r/hadolint/hadolint)                     | not a Woodpecker plugin, official | [![size](https://img.shields.io/docker/image-size/hadolint/hadolint?arch=amd64&label=)](https://hub.docker.com/r/hadolint/hadolint)                     | [![size](https://img.shields.io/docker/image-size/hadolint/hadolint?arch=arm64&label=)](https://hub.docker.com/r/hadolint/hadolint)                     |
 | [pipelinecomponents/hadolint](https://hub.docker.com/r/pipelinecomponents/hadolint) | not a Woodpecker plugin           | [![size](https://img.shields.io/docker/image-size/pipelinecomponents/hadolint?arch=amd64&label=)](https://hub.docker.com/r/pipelinecomponents/hadolint) | [![size](https://img.shields.io/docker/image-size/pipelinecomponents/hadolint?arch=arm64&label=)](https://hub.docker.com/r/pipelinecomponents/hadolint) |
