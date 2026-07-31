@@ -13,7 +13,7 @@ RUN [ "$TARGETARCH" = amd64 ] && export ARCH=x86_64; \
 	mv "hadolint-linux-$ARCH" /tmp/hadolint && chmod +x /tmp/hadolint && \
 	/tmp/hadolint --version
 
-FROM docker.io/library/busybox:1.38.0-uclibc@sha256:eea4ff5612c911abd1d0e9ed47ba642547b01c3490877d9c1bb5fd6346462da4
+FROM docker.io/library/busybox:1.38.0-uclibc@sha256:9ab52da40e3e18c5d7b05757c32995fda6c9bf46a2e6a1070d45466231a99193
 COPY --chmod=555 --chown=0:0 --from=build /tmp/hadolint /usr/bin/hadolint
 COPY --chmod=555 --chown=0:0 entrypoint.sh /usr/bin/entrypoint.sh
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
