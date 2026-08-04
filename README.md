@@ -24,7 +24,7 @@ Woodpecker:
 steps:
   hadolint:
     depends_on: []
-    image: kokuwaio/hadolint:v2.14.0
+    image: kokuwaio/hadolint:v2.15.1
     settings:
       strict-labels: true
       format: json
@@ -40,7 +40,7 @@ hadolint:
   needs: []
   stage: lint
   image:
-    name: kokuwaio/hadolint:v2.14.0
+    name: kokuwaio/hadolint:v2.15.1
     entrypoint: [""]
   script: [/usr/local/bin/entrypoint.sh]
   variables:
