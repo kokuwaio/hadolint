@@ -8,8 +8,8 @@ ARG TARGETARCH
 RUN [ "$TARGETARCH" = amd64 ] && export ARCH=x86_64; \
 	[ "$TARGETARCH" = arm64 ] && export ARCH=arm64; \
 	[ -z "${ARCH:-}" ] && echo "Unknown arch: $TARGETARCH" && exit 1; \
-	curl --fail --silent --location --remote-name-all "https://github.com/hadolint/hadolint/releases/download/v2.15.1/{hadolint-linux-$ARCH,hadolint-linux-$ARCH.sha256}" && \
-	sha256sum -c -s "hadolint-linux-$ARCH.sha256" && rm "hadolint-linux-$ARCH.sha256" && \
+	curl --fail --silent --location --remote-name-all "https://github.com/hadolint/hadolint/releases/download/v2.15.1/{hadolint-linux-$ARCH,checksums.sha256}" && \
+	grep "hadolint-linux-$ARCH" checksums.sha256 | sha256sum -csw  && rm checksums.sha256 && \
 	mv "hadolint-linux-$ARCH" /tmp/hadolint && chmod +x /tmp/hadolint && \
 	/tmp/hadolint --version
 
